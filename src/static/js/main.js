@@ -1,48 +1,63 @@
-// キャンバスの共通オブジェクト
-var canvas = null;
+const addRect = function(canvas, object) {
+  canvas.add(new fabric.Rect({
+    left: object['left'],
+    top: object['top'],
+    width: object['width'],
+    height: object['height'],
+    fill: 'rgb(255,255,255)',
+    stroke: "rgb(0,0,0)",
+    strokeWidth: 3,
+    strokeUniform: true,
+  }));
+}
 
-window.addEventListener("load", function(){
+const addLine = function(canvas, object) {
+  canvas.add(new fabric.Line([object['left'], object['top'], object['width'], object['height']], {
+    fill: 'rgb(255,255,255)',
+    stroke: "rgb(0,0,0)",
+    strokeWidth: 3,
+    strokeUniform: true,
+  }));
+}
+
+const addText = function(canvas, object) {
+  canvas.add(new fabric.Text(object['text'], {
+    left: object['left'],
+    top: object['top'],
+  }));
+}
+
+window.onload = function() {
   // キャンバスの初期設定
   const canvasinit = function(){
-
     // キャンバス取得
-    var canvas = new fabric.Canvas('canvas', {
-      isDrawingMode: true,
-      backgroundColor: 'rgb(211,211,211)',
+    const canvas = new fabric.Canvas('canvas', {
+      backgroundColor: 'rgb(241,241,241)',
     });
 
-    // 手書きモードOK
-    canvas.isDrawingMode = true;
-    // 手書きの色
-    canvas.freeDrawingBrush.color = "#000";
-    // 手書きの太さ
-    canvas.freeDrawingBrush.width = 5;
+    // 図形を配置
+    for (const [key, object] of Object.entries(result)) {
+      switch (object['type']) {
+        case 'rectangle':
+          addRect(canvas, object)
+          break;
+        case 'line':
+          addLine(canvas, object)
+          break;
+        case 'text':
+          addText(canvas, object)
+          break;
+        case 'rectangle':
+          console.log('rectangle');
+          break;
+        default:
+          console.log(object['type']);
+      }
 
-    // 描いた内容はクリア、画像はそのまま
-    var init = document.getElementById("init");
-    init.addEventListener("click", function(){
-      // キャンバスクリア
-      canvas.clear();
-      // 画像を表示(上記onload処理にいく)
-      img.src=FILENAME;
-    });
-
+      console.log(`${key}: ${object}`);
+    }
   }
   // 初期処理で実行
   canvasinit();
+};
 
-  // ダウンロード処理
-  var download = document.getElementById("download");
-  download.addEventListener("click", function(){
-
-    // ダウンロードファイル名指定
-    this.setAttribute("download", "sample.jpg");
-    // キャンバスのオブジェクト取得
-    canvas = document.getElementById('canvas');
-    // base64に変換
-    var base64 = canvas.toDataURL("image/jpeg");
-    // ダウンロード
-    document.getElementById("download").href = base64;
-
-  });
-});

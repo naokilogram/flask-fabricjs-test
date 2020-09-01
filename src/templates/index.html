@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="{{ url_for('static',filename='css/main.css') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
     <script src="{{ url_for('static',filename='js/fabric.min.js') }}"></script>
+    <script>
+      const result = {{ result|tojson }};
+    </script>
     <script src="{{ url_for('static',filename='js/main.js') }}"></script>
   </head>
   <body>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" width="800" height="600"></canvas>
   </body>
 </html>
