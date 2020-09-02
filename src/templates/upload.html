@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Index - Raksul Whiteboard
+{% endblock %}
+
+{% block external_css %}
+<!-- Dropzone CSS -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,500i,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
+
+{% block external_script %}
+<!-- Dropzone JS -->
+<script src="https://cdn.rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+<script src="{{ url_for('static',filename='js/upload.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<h1 class="cover-heading">Better Systems, Better World.</h1>
+<p class="lead">
+  Raksul aims to change the world by reinventing legacy industry structures with the power of the Internet.
+</p>
+<div class="container">
+  <form action="/upload" class="dropzone dz-clickable" id="my-dropzone">
+    <div class="dz-message d-flex flex-column">
+      <i class="material-icons text-muted">cloud_upload</i>
+      Drag &amp; Drop here or click
+    </div>
+  </form>
+</div> <!-- /container -->
+{% endblock %}

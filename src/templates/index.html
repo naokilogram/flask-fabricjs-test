@@ -1,14 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
-    <script src="{{ url_for('static',filename='js/fabric.min.js') }}"></script>
-    <script>
-      const result = {{ result|tojson }};
-    </script>
-    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
-  </head>
-  <body>
-    <canvas id="canvas" width="800" height="600"></canvas>
-  </body>
-</html>
+{% extends "layout.html" %}
+
+{% block title %}
+Index - Raksul Whiteboard
+{% endblock %}
+
+{% block external_script %}
+<script src="{{ url_for('static',filename='js/fabric.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/index.js') }}"></script>
+{% endblock %}
+
+{% block script %}
+const result = {{ result|tojson }};
+{% endblock %}
+
+{% block content %}
+<h1 class="cover-heading">Better Systems, Better World.</h1>
+<p class="lead">
+  Raksul aims to change the world by reinventing legacy industry structures with the power of the Internet.
+</p>
+<div id="canvas-wrapper">
+  <canvas id="canvas" width="800" height="600"></canvas>
+</div>
+{% endblock %}

@@ -1,3 +1,33 @@
-canvas {
-  border: solid 3px #000;
+main {
+  margin:0;
+  padding:0;
+}
+
+.lead {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+#canvas-wrapper {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.container {
+}
+
+.dropzone {
+  border: none;
+  background: #f5f5f5;
+}
+
+.dropzone i{
+  font-size: 5rem;
+}
+
+.dropzone .dz-message {
+  color: rgba(0,0,0,.54);
+  font-weight: 500;
+  font-size: initial;
+  text-transform: uppercase;
 }
