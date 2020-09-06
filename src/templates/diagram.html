@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block external_script %}
+<script src="{{ url_for('static',filename='js/fabric.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/add_shapes.js') }}"></script>
+<script src="{{ url_for('static',filename='js/diagram.js') }}"></script>
+{% endblock %}
+
+{% block script %}
+const result = {{ result|tojson }};
+{% endblock %}
+
+{% block content %}
+<div class="container" id="icons-wrapper">
+  <div class="row">
+    <div class="col-10">
+    </div>
+    <div class="col-2">
+      <a href="#"><i class="fas fa-link"></i></a>&nbsp;
+      <a href="#"><i class="fab fa-twitter"></i></a>&nbsp;
+      <a href="#"><i class="fab fa-slack"></i></a>&nbsp;
+      <i class="fab fa-facebook-f"></i>&nbsp;
+      <a href="#"><i class="fas fa-envelope-square"></i></a>
+    </div>
+  </div>
+</div>
+<div id="canvas-wrapper">
+  <canvas id="canvas" width="1000" height="600"></canvas>
+</div>
+<div class="container" id="buttons-wrapper" style="width: 1000px">
+  <div class="row">
+    <div class="col-3">
+      <a href="#" class="btn btn-danger" id="delete-btn"><i class="far fa-trash-alt"></i>&nbsp;Delete</a>
+      <a href="#" class="btn btn-info" id="up-btn"><i class="fas fa-sort-amount-up"></i></a>
+      <a href="#" class="btn btn-info" id="down-btn"><i class="fas fa-sort-amount-down"></i></a>
+    </div>
+    <div class="col-7">
+      <a href="#" class="btn btn-secondary" id="rectangle-btn"><i class="far fa-square"></i>&nbsp;Rectangle</a>&nbsp;
+      <a href="#" class="btn btn-secondary" id="circle-btn"><i class="far fa-circle"></i>&nbsp;Circle</a>&nbsp;
+      <a href="#" class="btn btn-secondary" id="line-btn"><i class="fab fa-line"></i>&nbsp;Line</a>&nbsp;
+      <a href="#" class="btn btn-secondary" id="arrow-btn"><i class="fas fa-arrow-circle-right"></i>&nbsp;Arrow</a>&nbsp;
+      <a href="#" class="btn btn-secondary" id="text-btn"><i class="far fa-keyboard"></i>&nbsp;Text</a>
+    </div>
+    <div class="col-2">
+      <a href="#" class="btn btn-secondary" id="download-btn"><i class="fas fa-file-download"></i>&nbsp;Download</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

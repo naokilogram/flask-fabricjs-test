@@ -1,9 +1,5 @@
 {% extends "layout.html" %}
 
-{% block title %}
-Index - Raksul Whiteboard
-{% endblock %}
-
 {% block external_css %}
 <!-- Dropzone CSS -->
 <link rel="stylesheet" href="https://cdn.rawgit.com/enyo/dropzone/master/dist/dropzone.css">
@@ -17,18 +13,29 @@ Index - Raksul Whiteboard
 <script src="{{ url_for('static',filename='js/upload.js') }}"></script>
 {% endblock %}
 
+{% block upload_active %}
+active
+{% endblock %}
+
 {% block content %}
-<h1 class="cover-heading">Better Systems, Better World.</h1>
+<h1 class="cover-heading">Made diagramming more enjoyable.</h1>
 <p class="lead">
-  Raksul aims to change the world by reinventing legacy industry structures with the power of the Internet.
+  Organize ideas by handwriting, share them prettier.
 </p>
+
 <div class="container">
-  <form action="/upload" class="dropzone dz-clickable" id="my-dropzone">
+  <form action="/" class="dropzone dz-clickable" id="MyDropzone">
     <div class="dz-message d-flex flex-column">
       <i class="material-icons text-muted">cloud_upload</i>
       Drag &amp; Drop here or click
     </div>
   </form>
-  <a href="#" class="btn btn-lg btn-secondary">Analyze it!</a>
 </div> <!-- /container -->
+<div class="container" id="buttons-wrapper">
+  <div class="row">
+    <div class="col">
+      <a href="{{ url_for('analyzing') }}" class="btn btn-secondary" id="analyze-btn">Analyze it!</a>
+    </div>
+  </div>
+</div>
 {% endblock %}
