@@ -3,6 +3,11 @@ let mostLeft = null;
 let mostRight = null;
 let mostTop = null;
 let mostBottom = null;
+const baseCoordinateX = 0;
+const baseCoordinateY = 0;
+
+// オブジェクトを並び替える順番
+const sortBy = ['line', 'arrow', 'rectangle', 'circle', 'text']
 
 // 最末端の座標を計算
 const calcMostEnd = function (left, right, top, bottom) {
@@ -14,8 +19,6 @@ const calcMostEnd = function (left, right, top, bottom) {
   mostRight = mostRight > right ? mostRight : right;
   mostTop = mostTop < top ? mostTop : top;
   mostBottom = mostBottom > bottom ? mostBottom : bottom;
-  console.log('right:' + mostRight);
-  console.log('bottom:' + mostBottom);
 }
 
 // 座標を四捨五入
@@ -56,7 +59,6 @@ const calcEndPoints = function (object) {
     default:
   }
 }
-
 window.onload = function () {
   // キャンバスの初期設定
   const canvasinit = function () {
@@ -65,18 +67,8 @@ window.onload = function () {
       preserveObjectStacking: true,
       backgroundColor: 'rgb(241,241,241)',
     });
-    // グリッドを作成
-    for (var i = 0; i < (1000 / grid); i++) {
-      color = (i % 10 === 0) ? '#aaa' : '#ccc';
-      canvas.add(new fabric.Line([i * grid, 0, i * grid, 600], {
-        stroke: color,
-        selectable: false
-      }));
-      canvas.add(new fabric.Line([0, i * grid, 1000, i * grid], {
-        stroke: color,
-        selectable: false
-      }))
-    }
+    // 画像を設定
+    setImage(canvas);
     // 座標を四捨五入
     for (const [key, object] of Object.entries(result)) {
       roundCoordinates(object);
@@ -118,6 +110,14 @@ window.onload = function () {
     $('#delete-btn').click(function () {
       canvas.remove(canvas.getActiveObject());
     })
+    // Downボタン押下
+    $('#down-btn').click(function () {
+      canvas.getActiveObject().sendToBack();
+    })
+    // Upボタン押下
+    $('#up-btn').click(function () {
+      canvas.getActiveObject().bringToFront();
+    })
     // Rectangleボタン押下
     $('#rectangle-btn').click(function () {
       addRectangle(canvas, {"left": 0, "top": 0, "width": 150, "height": 100})
@@ -140,11 +140,15 @@ window.onload = function () {
     })
     // Download As Imageボタン押下
     $('#download-btn').click(function () {
-      let canvas = document.getElementById("canvas");
+      canvas.backgroundImage = null;
+      canvas.renderAll();
+      let canvas_from_html = document.getElementById("canvas");
       let link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png");
+      link.href = canvas_from_html.toDataURL("image/png");
       link.download = "test.png";
       link.click();
+      setImage(canvas);
+      canvas.renderAll();
     });
   }
   // 初期処理で実行
