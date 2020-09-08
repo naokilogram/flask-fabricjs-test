@@ -106,6 +106,17 @@ window.onload = function () {
         top: Math.round(options.target.top / grid) * grid
       });
     });
+    // 深度調整ボタンの制御
+    canvas.on('selection:created', function () {
+      $("#delete-btn").removeClass('disabled');
+      $("#up-btn").removeClass('disabled');
+      $("#down-btn").removeClass('disabled');
+    });
+    canvas.on('selection:cleared', function () {
+      $("#delete-btn").addClass('disabled');
+      $("#up-btn").addClass('disabled');
+      $("#down-btn").addClass('disabled');
+    });
     // Deleteボタン押下
     $('#delete-btn').click(function () {
       canvas.remove(canvas.getActiveObject());
