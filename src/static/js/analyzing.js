@@ -5,5 +5,5 @@ $(function() {
   });
   setTimeout(function(){
     window.location.href = "/diagram?filename=" + getUrlParameter('filename');
-  }, 4000);
+  }, 3000);
 });
